@@ -1,0 +1,71 @@
+# DATA
+BATCH_SIZE: 128
+# Path to dataset, could be overwritten by command line argument
+DATA_PATH: ''
+DATASET: 'imagenet'
+# Input image size
+IMG_SIZE: 224
+# Interpolation to resize image (random, bilinear, bicubic)
+INTERPOLATION: 'bibubic'
+PIN_MEMORY: True
+NUM_WORKERS: 8
+
+# TRAIN
+GPU: '0'
+START_EPOCH: 0
+EPOCHS: 300
+WARMUP_EPOCHS: 20
+WEIGHT_DECAY: 0.05
+BASE_LR: 5e-4
+WARMUP_LR: 5e-7
+MIN_LR: 5e-6
+# Clip gradient norm
+CLIP_GRAD: 5.0
+# Label Smoothing
+LABEL_SMOOTHING: 0.1
+# Auto resume from latest checkpoint
+AUTO_RESUME: True
+# Gradient accumulation steps
+# could be overwritten by command line argument
+ACCUMULATION_STEPS: 0
+# Whether to use gradient checkpointing to save memory
+# could be overwritten by command line argument
+USE_CHECKPOINT: False
+
+LR_SCHEDULER:
+  NAME: 'cosine'
+  # Epoch interval to decay LR, used in StepLRScheduler
+  DECAY_EPOCHS: 30
+  # LR decay rate, used in StepLRScheduler
+  DECAY: 0.1
+
+OPTIMIZER:
+  NAME: 'adamw'
+  EPS: 1e-8
+  BETAS: (0.9, 0.999)
+  MOMENTUM: 0.9
+
+AUG:
+  COLOR_JITTER: 0.4
+  AUTO_AUGMENT: 'rand-m9-mstd0.5-inc1'
+  REPROB: 0.25
+  REMODE: 'pixel'
+  RECOUNT: 1
+  MIXUP: 0.8
+  CUTMIX: 1.0
+  CUTMIX_MINMAX: None
+  MIXUP_PROB: 1.0
+  MIXUP_SWITCH_PROB: 0.5
+  MIXUP_MODE: 'batch'
+
+TEST:
+  CROP: True
+
+# Others
+OUTPUT: ''
+TAG: 'default'
+SAVE_FREQ: 1
+PRINT_FREQ: 10
+SEED: 0
+EVAL_MODE: False
+THROUGHPUT_MODE: False
