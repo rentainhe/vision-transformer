@@ -1,0 +1,14 @@
+MODEL:
+  TYPE: vit
+  NAME: vit-b_16
+  VIT:
+    PATCH_SIZE: 32
+    IN_CHANS: 3
+    NUM_CLASSES: 1000
+    DIM: 768
+    MLP_DIM: 3072
+    DEPTH: 12
+    HEADS: 12
+    POOL: 'cls'
+    DROPOUT: 0.1
+    EMB_DROPOUT: 0.0

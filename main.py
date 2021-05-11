@@ -43,3 +43,11 @@ if __name__ == '__main__':
 
     print("Hyper Parameters:")
     print(configs)
+    print(configs.MODEL)
+
+    # test model
+    # from models.build import build_model
+    # model = build_model(configs)
+    # import torch
+    # test = torch.randn(1,3,224,224)
+    # print(model(test).size())
