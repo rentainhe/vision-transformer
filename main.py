@@ -44,10 +44,11 @@ if __name__ == '__main__':
     print("Hyper Parameters:")
     print(configs)
     print(configs.MODEL)
+    print(tuple(eval(configs.MODEL['T2T_VIT']['T2T_LAYERS'])))
 
     # test model
-    # from models.build import build_model
-    # model = build_model(configs)
-    # import torch
-    # test = torch.randn(1,3,224,224)
-    # print(model(test).size())
+    from models.build import build_model
+    model = build_model(configs)
+    import torch
+    test = torch.randn(1,3,224,224)
+    print(model(test).size())

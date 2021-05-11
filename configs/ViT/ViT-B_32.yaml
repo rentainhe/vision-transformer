@@ -9,6 +9,7 @@ MODEL:
     MLP_DIM: 3072
     DEPTH: 12
     HEADS: 12
+    DIM_HEAD: 64
     POOL: 'cls'
     DROPOUT: 0.1
     EMB_DROPOUT: 0.0
