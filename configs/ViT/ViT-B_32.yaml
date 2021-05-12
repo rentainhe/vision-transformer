@@ -5,7 +5,7 @@ MODEL:
     PATCH_SIZE: 32
     IN_CHANS: 3
     NUM_CLASSES: 1000
-    DIM: 768
+    EMBED_DIM: 768
     MLP_DIM: 3072
     DEPTH: 12
     HEADS: 12

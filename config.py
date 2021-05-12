@@ -71,6 +71,35 @@ _C.MODEL.SWIN.QK_SCALE = None
 _C.MODEL.SWIN.APE = False
 _C.MODEL.SWIN.PATCH_NORM = True
 
+# ViT parameters
+_C.MODEL.VIT = CN()
+_C.MODEL.VIT.PATCH_SIZE = 16
+_C.MODEL.VIT.IN_CHANS = 3
+_C.MODEL.VIT.NUM_CLASSES = 1000
+_C.MODEL.VIT.EMBED_DIM = 768
+_C.MODEL.VIT.MLP_DIM = 3072
+_C.MODEL.VIT.DEPTH = 12
+_C.MODEL.VIT.HEADS = 12
+_C.MODEL.VIT.DIM_HEAD = 64
+_C.MODEL.VIT.POOL = 'cls'
+_C.MODEL.VIT.DROPOUT = 0.1
+_C.MODEL.VIT.EMB_DROPOUT = 0.0
+
+# T2T-ViT parameters
+_C.MODEL.T2T_VIT = CN()
+_C.MODEL.T2T_VIT.IN_CHANS = 3
+_C.MODEL.T2T_VIT.NUM_CLASSES = 1000
+_C.MODEL.T2T_VIT.EMBED_DIM = 256
+_C.MODEL.T2T_VIT.MLP_DIM = 512
+_C.MODEL.T2T_VIT.DEPTH = 7
+_C.MODEL.T2T_VIT.HEADS = 4
+_C.MODEL.T2T_VIT.DIM_HEAD = 64
+_C.MODEL.T2T_VIT.POOL = 'cls'
+_C.MODEL.T2T_VIT.DROPOUT = 0.1
+_C.MODEL.T2T_VIT.EMB_DROPOUT = 0.0
+_C.MODEL.T2T_VIT.TOKENS_TYPE = 'performer'
+_C.MODEL.T2T_VIT.T2T_LAYERS = ((7, 4), (3, 2), (3, 2))
+
 # -----------------------------------------------------------------------------
 # Training settings
 # -----------------------------------------------------------------------------
@@ -218,7 +247,7 @@ def update_config(config, args):
         config.THROUGHPUT_MODE = True
 
     # set local rank for distributed training
-    config.LOCAL_RANK = args.local_rank
+    # config.LOCAL_RANK = args.local_rank
 
     # output folder
     config.OUTPUT = os.path.join(config.OUTPUT, config.MODEL.NAME, config.TAG)

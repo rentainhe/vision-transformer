@@ -4,7 +4,7 @@ MODEL:
   T2T_VIT:
     IN_CHANS: 3
     NUM_CLASSES: 1000
-    DIM: 512
+    EMBED_DIM: 512
     # mlp_ratio = 3.
     MLP_DIM: 1536
     DEPTH: 24
