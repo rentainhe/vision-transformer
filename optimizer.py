@@ -42,6 +42,11 @@ def set_weight_decay(model, skip_list=(), skip_keywords=()):
         if len(param.shape) == 1 or name.endwith(".bias") or (name in skip_list) or \
                 check_keywords_in_name(name, skip_keywords):
             no_decay.append(param)
+            print(f"{name} has no weight decay")
+        else:
+            has_decay.append(param)
+    return [{'params': has_decay},
+            {'params': no_decay, 'weight_decay': 0.}]
 
 
 def check_keywords_in_name(name, keywords=()):
