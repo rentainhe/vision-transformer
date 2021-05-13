@@ -69,7 +69,7 @@ def parse_option():
     return args, config
 
 
-def main(config):
+def main(config, writer):
     dataset_train, dataset_val, data_loader_train, data_loader_val, mixup_fn = build_loader(config)
 
     logger.info(f"Creating model:{config.MODEL.TYPE}/{config.MODEL.NAME}")
@@ -139,7 +139,7 @@ def main(config):
     logger.info('Training time {}'.format(total_time_str))
 
 
-def train_one_epoch(config, model, criterion, data_loader, optimizer, epoch, mixup_fn, lr_scheduler):
+def train_one_epoch(config, model, criterion, data_loader, optimizer, epoch, mixup_fn, lr_scheduler, writer):
     model.train()
     optimizer.zero_grad()
 
@@ -334,6 +334,7 @@ if __name__ == '__main__':
     os.makedirs(config.OUTPUT, exist_ok=True)
     os.makedirs(config.TENSORBOARD_OUTPUT, exist_ok=True)
     logger = create_logger(output_dir=config.OUTPUT, name=f"{config.MODEL.NAME}")  # 直接令 dist_rank = 0
+    writer = SummaryWriter(log_dir=config.TENSORBOARD_OUTPUT)
 
     path = os.path.join(config.OUTPUT, "config.json")
     with open(path, "w") as f:
