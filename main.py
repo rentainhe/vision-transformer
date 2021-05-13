@@ -45,6 +45,8 @@ def parse_option():
 
     return args, config
 
+
+
 if __name__ == "__main__":
     _, config = parse_option()
     print(config)
