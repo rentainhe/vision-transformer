@@ -182,6 +182,8 @@ _C.TEST.CROP = True
 _C.AMP_OPT_LEVEL = ''
 # Path to output folder, overwritten by command line argument
 _C.OUTPUT = ''
+# Path to the tensorboard file, overwritten by command line argument
+_C.TENSORBOARD_OUTPUT = ''
 # Tag of experiment, overwritten by command line argument
 _C.TAG = 'default'
 # Frequency to save checkpoint
@@ -239,6 +241,8 @@ def update_config(config, args):
         config.AMP_OPT_LEVEL = args.amp_opt_level
     if args.output:
         config.OUTPUT = args.output
+    if args.tensorboard_output:
+        config.OUTPUT = args.tensorboard_output
     if args.tag:
         config.TAG = args.tag
     if args.eval:
@@ -251,6 +255,8 @@ def update_config(config, args):
 
     # output folder
     config.OUTPUT = os.path.join(config.OUTPUT, config.MODEL.NAME, config.TAG)
+    # tensorboard output folder
+    config.TENSORBOARD_OUTPUT = os.path.join(config.TENSORBOARD_OUTPUT, config.MODEL.NAME, config.TAG)
 
     config.freeze()
 
