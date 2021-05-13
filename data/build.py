@@ -87,14 +87,11 @@ def build_dataset(is_train, config):
             root = os.path.join(config.DATA.DATA_PATH, prefix)
             dataset = datasets.ImageFolder(root, transform=transform)
         nb_classes = 1000
-    elif config.DATA.DATASET == 'cifar10':
-        dataset = ds.CIFAR10(root=config.DATA.DATA_PATH, transform=transform, is_train=is_train, download=True)
-        nb_classes = 10
     elif config.DATA.DATASET == 'cifar100':
         dataset = ds.CIFAR100(root=config.DATA.DATA_PATH, transform=transform, is_train=is_train, download=True)
         nb_classes = 100
     else:
-        raise NotImplementedError("We only support ImageNet, Cifar10, Cifar100 Now.")
+        raise NotImplementedError("We only support ImageNet, Cifar100 Now.")
 
     return dataset, nb_classes
 
@@ -135,5 +132,10 @@ def build_transform(is_train, config):
             )
 
     t.append(transforms.ToTensor())
-    t.append(transforms.Normalize(IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD))
+    if config.DATA.DATASET == 'imagenet':
+        t.append(transforms.Normalize(IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD))
+    elif config.DATA.DATASET == 'cifar100':
+        CIFAR100_TRAIN_MEAN = (0.5070751592371323, 0.48654887331495095, 0.4409178433670343)
+        CIFAR100_TRAIN_STD = (0.2673342858792401, 0.2564384629170883, 0.27615047132568404)
+        t.append(transforms.Normalize(CIFAR100_TRAIN_MEAN, CIFAR100_TRAIN_STD))
     return transforms.Compose(t)
