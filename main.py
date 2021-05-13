@@ -125,11 +125,14 @@ def main(config, writer):
     logger.info("Start training")
     start_time = time.time()
     for epoch in range(config.TRAIN.START_EPOCH, config.TRAIN.EPOCHS):
-        train_one_epoch(config, model, criterion, data_loader_train, optimizer, epoch, mixup_fn, lr_scheduler)
+        train_one_epoch(config, model, criterion, data_loader_train, optimizer, epoch, mixup_fn, lr_scheduler, writer)
         if (epoch % config.SAVE_FREQ == 0 or epoch == (config.TRAIN.EPOCHS - 1)):
             save_checkpoint(config, epoch, model, max_accuracy, optimizer, lr_scheduler, logger)
 
         acc1, acc5, loss = validate(config, data_loader_val, model)
+        writer.add_scalar("validate/acc1", scalar_value=acc1, global_step=epoch)
+        writer.add_scalar("validate/acc5", scalar_value=acc5, global_step=epoch)
+        writer.add_scalar("validate/loss", scalar_value=loss, global_step=epoch)
         logger.info(f"Accuracy of the network on the {len(dataset_val)} test images: {acc1:.1f}%")
         max_accuracy = max(max_accuracy, acc1)
         logger.info(f'Max accuracy: {max_accuracy:.2f}%')
@@ -179,6 +182,9 @@ def train_one_epoch(config, model, criterion, data_loader, optimizer, epoch, mix
                 optimizer.step()
                 optimizer.zero_grad()
                 lr_scheduler.step_update(epoch * num_steps + idx)
+            writer.add_scalar("train/loss", scalar_value=loss, global_step=(epoch * num_steps + idx))
+            writer.add_scalar("train/lr", scalar_value=optimizer.param_groups[0]['lr'], global_step=epoch)
+            writer.add_scalar("train/grad_norm", scalar_value=grad_norm, global_step=(epoch * num_steps + idx))
         else:
             loss = criterion(outputs, targets)
             optimizer.zero_grad()
@@ -197,6 +203,9 @@ def train_one_epoch(config, model, criterion, data_loader, optimizer, epoch, mix
                     grad_norm = get_grad_norm(model.parameters())
             optimizer.step()
             lr_scheduler.step_update(epoch * num_steps + idx)
+            writer.add_scalar("train/loss", scalar_value=loss, global_step=(epoch * num_steps + idx))
+            writer.add_scalar("train/lr", scalar_value=optimizer.param_groups[0]['lr'], global_step=epoch)
+            writer.add_scalar("train/grad_norm", scalar_value=grad_norm, global_step=(epoch * num_steps + idx))
 
         torch.cuda.synchronize()
         loss_meter.update(loss.item(), targets.size(0))
@@ -344,7 +353,7 @@ if __name__ == '__main__':
     # print config
     logger.info(config.dump())
 
-    main(config)
+    main(config, writer=writer)
 
 # if __name__ == "__main__":
 #     _, config = parse_option()
