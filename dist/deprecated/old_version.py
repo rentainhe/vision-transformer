@@ -1,4 +1,4 @@
-from deprecated.build_config import configs
+from dist.deprecated.build_config import configs
 import argparse
 import yaml
 
