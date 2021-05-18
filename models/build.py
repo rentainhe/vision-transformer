@@ -7,7 +7,7 @@ def build_model(config):
     if model_type == 'vit':
         model = ViT(image_size=config.DATA.IMG_SIZE,
                     patch_size=config.MODEL.VIT.PATCH_SIZE,
-                    num_classes=config.MODEL.VIT.NUM_CLASSES,
+                    num_classes=config.MODEL.NUM_CLASSES,
                     dim=config.MODEL.VIT.EMBED_DIM,
                     depth=config.MODEL.VIT.DEPTH,
                     heads=config.MODEL.VIT.HEADS,
@@ -19,7 +19,7 @@ def build_model(config):
 
     elif model_type == 't2t-vit':
         model = T2T_ViT(image_size=config.DATA.IMG_SIZE,
-                        num_classes=config.MODEL.T2T_VIT.NUM_CLASSES,
+                        num_classes=config.MODEL.NUM_CLASSES,
                         dim=config.MODEL.T2T_VIT.EMBED_DIM,
                         depth=config.MODEL.T2T_VIT.DEPTH,
                         heads=config.MODEL.T2T_VIT.HEADS,
