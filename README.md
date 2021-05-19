@@ -3,6 +3,8 @@ A collection of SOTA ViT on Pytorch
 
 Build on [__Swin-Transformer__](https://github.com/microsoft/Swin-Transformer) for Single GPU Training or DataParallel Training, remove DDP Training 
 
+The `dist` folder is deprecated
+
 ## Contents
 - [__basic config file__](https://github.com/rentainhe/vision-transformer/blob/master/config.py)
 - [__model zoo__]()

@@ -40,7 +40,7 @@ def parse_option():
     # easy config modification
     parser.add_argument('--dataset', type=str, default='cifar100', help='dataset for training')
     parser.add_argument('--batch-size', type=int, help="batch size for single GPU")
-    parser.add_argument('--data-path', type=str, help='path to dataset')
+    parser.add_argument('--data-path', type=str, default='dataset', help='path to dataset')
     parser.add_argument('--zip', action='store_true', help='use zipped dataset instead of folder dataset')
     parser.add_argument('--cache-mode', type=str, default='part', choices=['no', 'full', 'part'],
                         help='no: no cache, '
@@ -344,6 +344,7 @@ if __name__ == '__main__':
 
     os.makedirs(config.OUTPUT, exist_ok=True)
     os.makedirs(config.TENSORBOARD_OUTPUT, exist_ok=True)
+    os.makedirs(config.DATA.DATA_PATH, exist_ok=True)
 
     logger = create_logger(output_dir=config.OUTPUT, name=f"{config.MODEL.NAME}")  # 直接令 dist_rank = 0
     writer = SummaryWriter(log_dir=config.TENSORBOARD_OUTPUT)

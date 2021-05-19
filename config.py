@@ -21,7 +21,7 @@ _C.DATA = CN()
 # Batch size for a single GPU, could be overwritten by command line argument
 _C.DATA.BATCH_SIZE = 128
 # Path to dataset, could be overwritten by command line argument
-_C.DATA.DATA_PATH = './'
+_C.DATA.DATA_PATH = ''
 # Dataset name
 _C.DATA.DATASET = 'cifar100'
 # Input image size
@@ -257,6 +257,8 @@ def update_config(config, args):
     config.OUTPUT = os.path.join(config.OUTPUT, config.MODEL.NAME, config.TAG)
     # tensorboard output folder
     config.TENSORBOARD_OUTPUT = os.path.join(config.TENSORBOARD_OUTPUT, config.MODEL.NAME, config.TAG)
+    # dataset folder
+    config.DATA.DATA_PATH = os.path.join(config.DATA.DATA_PATH, config.DATA.DATASET)
 
     config.freeze()
 
