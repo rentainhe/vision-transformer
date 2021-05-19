@@ -1,5 +1,5 @@
 # --------------------------------------------------------
-# Swin_T Transformer
+# swin-t Transformer
 # Copyright (c) 2021 Microsoft
 # Licensed under The MIT License [see LICENSE for details]
 # Written by Ze Liu
@@ -57,7 +57,7 @@ _C.MODEL.DROP_PATH_RATE = 0.1
 # Label Smoothing
 _C.MODEL.LABEL_SMOOTHING = 0.1
 
-# Swin_T Transformer parameters
+# swin-t Transformer parameters
 _C.MODEL.SWIN = CN()
 _C.MODEL.SWIN.PATCH_SIZE = 4
 _C.MODEL.SWIN.IN_CHANS = 3
@@ -71,7 +71,7 @@ _C.MODEL.SWIN.QK_SCALE = None
 _C.MODEL.SWIN.APE = False
 _C.MODEL.SWIN.PATCH_NORM = True
 
-# ViT parameters
+# vit parameters
 _C.MODEL.VIT = CN()
 _C.MODEL.VIT.PATCH_SIZE = 16
 _C.MODEL.VIT.IN_CHANS = 3
@@ -84,7 +84,7 @@ _C.MODEL.VIT.POOL = 'cls'
 _C.MODEL.VIT.DROPOUT = 0.1
 _C.MODEL.VIT.EMB_DROPOUT = 0.0
 
-# T2T-ViT parameters
+# T2T-vit parameters
 _C.MODEL.T2T_VIT = CN()
 _C.MODEL.T2T_VIT.IN_CHANS = 3
 _C.MODEL.T2T_VIT.EMBED_DIM = 256

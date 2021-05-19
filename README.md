@@ -51,7 +51,7 @@ pip install opencv-python==4.4.0.46 termcolor==1.1.0 yacs==0.1.8
 ### Training
 - Training `vit-b_16` model for `cifar100`
 ```bash
-python main.py --cfg configs/ViT/vit-b_16.yaml
+python main.py --cfg configs/vit/vit-b_16.yaml
 ```
 Addition args:
 - `--batch-size`: batch size for Single GPU, e.g, `--batch-size 128`
