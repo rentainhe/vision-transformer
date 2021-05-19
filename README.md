@@ -2,7 +2,7 @@
 A collection of SOTA ViT on Pytorch
 
 ## contents
-- [__config file__]()
+- [__basic config file__](https://github.com/rentainhe/vision-transformer/blob/master/config.py)
 - [__model zoo__]()
 - [__training tutorial__]()
 

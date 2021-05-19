@@ -1,7 +1,7 @@
 import torch
 from torch import nn, einsum
 import torch.nn.functional as F
-
+import math
 from einops import rearrange, repeat
 from einops.layers.torch import Rearrange
 
@@ -39,18 +39,16 @@ class FeedForward(nn.Module):
 
 
 class Attention(nn.Module):
-    def __init__(self, dim, heads=8, dim_head=64, dropout=0.):
+    def __init__(self, dim, heads = 8, dim_head = 64, dropout = 0.):
         super().__init__()
-        inner_dim = dim_head * heads
-        # When heads > 1 it needs to be linear merged
-        # When dim_head != dim, it should change the output dim
+        inner_dim = dim_head *  heads
         project_out = not (heads == 1 and dim_head == dim)
 
         self.heads = heads
-        self.scale = dim_head ** -0.5
+        self.scale = math.sqrt(dim_head)
 
-        self.attend = nn.Softmax(dim=-1)
-        self.to_qkv = nn.Linear(dim, inner_dim * 3, bias=False)
+        self.attend = nn.Softmax(dim = -1)
+        self.to_qkv = nn.Linear(dim, inner_dim * 3, bias = False)
 
         self.to_out = nn.Sequential(
             nn.Linear(inner_dim, dim),
@@ -58,16 +56,14 @@ class Attention(nn.Module):
         ) if project_out else nn.Identity()
 
     def forward(self, x):
-        # batch, token_nums, channel, heads
         b, n, _, h = *x.shape, self.heads
-        qkv = self.to_qkv(x).chunk(3, dim=-1)
-        q, k, v = map(lambda t: rearrange(t, 'b n (h d) -> b h n d', h=h), qkv)
-        # qk -> dots product
+        qkv = self.to_qkv(x).chunk(3, dim = -1)
+        q, k, v = map(lambda t: rearrange(t, 'b n (h d) -> b h n d', h = h), qkv)
+
         dots = einsum('b h i d, b h j d -> b h i j', q, k) * self.scale
-        # attention map
+
         attn = self.attend(dots)
-        # attend @ v
-        out = einsum('b h i j, b h j d -> b h i d', attn, v)
+        out = torch.matmul(attn, v)
         out = rearrange(out, 'b h n d -> b n (h d)')
         return self.to_out(out)
 
