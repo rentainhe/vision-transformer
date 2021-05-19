@@ -141,6 +141,7 @@ def main(config, writer):
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
     logger.info('Training time {}'.format(total_time_str))
 
+
 def train_one_epoch(config, model, criterion, data_loader, optimizer, epoch, mixup_fn, lr_scheduler, writer):
     model.train()
     optimizer.zero_grad()
@@ -342,6 +343,7 @@ if __name__ == '__main__':
 
     os.makedirs(config.OUTPUT, exist_ok=True)
     os.makedirs(config.TENSORBOARD_OUTPUT, exist_ok=True)
+
     logger = create_logger(output_dir=config.OUTPUT, name=f"{config.MODEL.NAME}")  # 直接令 dist_rank = 0
     writer = SummaryWriter(log_dir=config.TENSORBOARD_OUTPUT)
 

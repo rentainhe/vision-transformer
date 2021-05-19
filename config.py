@@ -21,7 +21,7 @@ _C.DATA = CN()
 # Batch size for a single GPU, could be overwritten by command line argument
 _C.DATA.BATCH_SIZE = 128
 # Path to dataset, could be overwritten by command line argument
-_C.DATA.DATA_PATH = ''
+_C.DATA.DATA_PATH = './'
 # Dataset name
 _C.DATA.DATASET = 'cifar100'
 # Input image size
@@ -49,7 +49,7 @@ _C.MODEL.NAME = 'swin_tiny_patch4_window7_224'
 # Checkpoint to resume, could be overwritten by command line argument
 _C.MODEL.RESUME = ''
 # Number of classes, overwritten in data preparation
-_C.MODEL.NUM_CLASSES = 1000
+_C.MODEL.NUM_CLASSES = 100
 # Dropout rate
 _C.MODEL.DROP_RATE = 0.0
 # Drop path rate
@@ -75,7 +75,6 @@ _C.MODEL.SWIN.PATCH_NORM = True
 _C.MODEL.VIT = CN()
 _C.MODEL.VIT.PATCH_SIZE = 16
 _C.MODEL.VIT.IN_CHANS = 3
-_C.MODEL.VIT.NUM_CLASSES = 1000
 _C.MODEL.VIT.EMBED_DIM = 768
 _C.MODEL.VIT.MLP_DIM = 3072
 _C.MODEL.VIT.DEPTH = 12
@@ -88,7 +87,6 @@ _C.MODEL.VIT.EMB_DROPOUT = 0.0
 # T2T-ViT parameters
 _C.MODEL.T2T_VIT = CN()
 _C.MODEL.T2T_VIT.IN_CHANS = 3
-_C.MODEL.T2T_VIT.NUM_CLASSES = 1000
 _C.MODEL.T2T_VIT.EMBED_DIM = 256
 _C.MODEL.T2T_VIT.MLP_DIM = 512
 _C.MODEL.T2T_VIT.DEPTH = 7
