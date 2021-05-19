@@ -221,6 +221,8 @@ def update_config(config, args):
         config.merge_from_list(args.opts)
 
     # merge from specific arguments
+    if args.dataset:
+        config.DATA.DATASET = args.dataset
     if args.batch_size:
         config.DATA.BATCH_SIZE = args.batch_size
     if args.data_path:
